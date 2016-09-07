@@ -45,7 +45,7 @@ public class QuoteServerThread extends Thread {
                     dString = new Date().toString();
                 else
                     dString = getNextQuote();
-                buf = dString.getBytes();
+                buf = dString.getBytes("UTF-8");
 
                 // 向用户发送响应
                 InetAddress address = packet.getAddress();
@@ -66,7 +66,7 @@ public class QuoteServerThread extends Thread {
             if ((returnValue = in.readLine()) == null) {
                 in.close();
                 moreQuotes = false;
-                returnValue = "No more quotes. Goodbye.";
+                returnValue = "-End-";
             }
         } catch (IOException e) {
             returnValue = "IOException occurred in server.";

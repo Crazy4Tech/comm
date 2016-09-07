@@ -17,7 +17,7 @@ public class MulticastClient {
         socket.joinGroup(address);
         // 使用joinGroup()将广播套接字绑定到地址上
         DatagramPacket packet;
-        for (;;) {
+        for(;;){
             byte[] buf = new byte[256];
             // 创建缓冲区
             packet = new DatagramPacket(buf, buf.length);
@@ -25,7 +25,7 @@ public class MulticastClient {
             socket.receive(packet); // 接收
             byte[] tmp = packet.getData();
             String received = new String(tmp,Charset.forName("UTF-8"));
-            if("-End-".equals(received)){
+            if("-End-".equals(received.trim())){
                 break;
             }
             // 由接收到的数据报得到字节数组，
@@ -33,10 +33,8 @@ public class MulticastClient {
             System.out.println("Quote of theMoment:" + received);
             // 打印得到的字符串
         } // 循环5次
-        System.out.println("-End-");
         socket.leaveGroup(address);
         // 把广播套接字从地址上解除绑定
         socket.close(); // 关闭广播套接字
-        System.exit(0);
     }
 }
